@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contrato de Locação - Rubrica no Rodapé de Cada Página</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #e2e8f0;
+        font-family: "Times New Roman", Times, serif;
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .form-container {
+        background: white;
+        max-width: 1000px;
+        width: 100%;
+        margin-bottom: 35px;
+        padding: 25px 30px;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+
+      .form-container h2 {
+        text-align: center;
+        color: #1e3a8a;
+        margin-bottom: 20px;
+        border-left: 5px solid #1e3a8a;
+        padding-left: 15px;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .form-group.full-width {
+        grid-column: span 2;
+      }
+
+      label {
+        font-weight: bold;
+        color: #0f172a;
+        font-size: 0.8rem;
+      }
+
+      input,
+      textarea,
+      select {
+        padding: 8px 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        font-family: inherit;
+      }
+
+      select {
+        cursor: pointer;
+        background-color: white;
+      }
+
+      button {
+        background: #1e3a8a;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 30px;
+        cursor: pointer;
+        margin-top: 18px;
+        width: 100%;
+      }
+
+      button:hover {
+        background: #0f2b6d;
+      }
+
+      .btn-print {
+        background: #15803d;
+        margin-top: 8px;
+      }
+
+      .contract-preview {
+        background: white;
+        max-width: 1100px;
+        width: 100%;
+        margin: 0 auto;
+        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+      }
+
+      #contractContent {
+        background: white;
+        padding: 0;
+        font-family: "Times New Roman", Times, serif;
+        font-size: 12pt;
+        line-height: 1.4;
+        color: #000;
+      }
+
+      /* Estilos do documento */
+      .contract-doc h1 {
+        text-align: center;
+        font-size: 16pt;
+        font-weight: bold;
+        margin: 0 0 12px 0;
+      }
+
+      .dados-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 15px;
+        font-size: 12pt;
+      }
+
+      .dados-table td {
+        border: 1px solid #000000;
+        padding: 6px 8px;
+        vertical-align: top;
+      }
+
+      .dados-table td:first-child {
+        font-weight: bold;
+        width: 30%;
+        background-color: #f9f9f9;
+      }
+
+      .contract-doc p {
+        margin: 5px 0;
+        text-align: justify;
+      }
+
+      .clausula-titulo {
+        font-weight: bold;
+        margin-top: 8px;
+        margin-bottom: 2px;
+        font-size: 12pt;
+      }
+
+      .sub-item {
+        margin-left: 20px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        text-align: justify;
+      }
+
+      .assinatura-area {
+        margin-top: 25px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        text-align: center;
+      }
+
+      .linha-assinatura {
+        width: 45%;
+        margin-top: 25px;
+        border-top: 1px solid #000;
+        padding-top: 8px;
+      }
+
+      .testemunhas-area {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .testemunha-item {
+        width: 45%;
+        text-align: center;
+      }
+
+      .testemunha-linha {
+        border-top: 1px solid #000;
+        padding-top: 8px;
+        margin-top: 20px;
+      }
+
+      .footer-data {
+        margin-top: 15px;
+        text-align: right;
+      }
+
+      /* ========== ESTILO PARA IMPRESSÃO COM RUBRICA NO RODAPÉ ========== */
+      @media print {
+        body {
+          background: white;
+          padding: 0;
+          margin: 0;
+        }
+        .form-container,
+        .btn-print,
+        button {
+          display: none;
+        }
+        .contract-preview {
+          box-shadow: none;
+          margin: 0;
+          padding: 0;
+        }
+        #contractContent {
+          padding: 0;
+          margin: 0;
+        }
+        .contract-doc {
+          margin: 0;
+          padding: 0.5in 0.6in;
+        }
+
+        /* Define a rubrica no rodapé de CADA página */
+        @page {
+          margin: 0.5in 0.6in;
+          @bottom-center {
+            content: "_________________________________________________________";
+            font-size: 9pt;
+            font-family: "Times New Roman", Times, serif;
+            margin-bottom: 0.2in;
+          }
+        }
+
+        /* Título da rubrica aparece via before/after */
+        @page :left {
+          @bottom-center {
+            content: "Rubrica do LOCADOR                                 Rubrica do "
+              counter(page);
+          }
+        }
+
+        .contract-doc > *:first-child {
+          margin-top: 0;
+          padding-top: 0;
+        }
+
+        h1 {
+          margin-top: 0;
+          padding-top: 0;
+          page-break-after: avoid;
+        }
+
+        p,
+        .sub-item,
+        .clausula-titulo,
+        .dados-table,
+        .assinatura-area,
+        .testemunhas-area,
+        .footer-data {
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+
+        .clausula-titulo {
+          page-break-after: avoid;
+        }
+      }
+
+      /* Alternativa para navegadores que não suportam @bottom-center com texto complexo */
+      .print-footer-fallback {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>📄 GERADOR DE CONTRATO DE LOCAÇÃO</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>LOCADOR (nome completo):</label
+          ><input
+            type="text"
+            id="locadorNome"
+            value="PAULO SERGIO SANTOS DE ALMEIDA"
+          />
+        </div>
+        <div class="form-group">
+          <label>CPF do LOCADOR:</label
+          ><input type="text" id="locadorCpf" value="868.272.275-53" />
+        </div>
+        <div class="form-group">
+          <label>RG do LOCADOR:</label
+          ><input type="text" id="locadorRg" value="07.339.606-00" />
+        </div>
+        <div class="form-group">
+          <label>Endereço (LOCADOR):</label
+          ><input
+            type="text"
+            id="locadorEnd"
+            value="BARRA NOVA, distrito de BARRA DO CHOÇA-BA"
+          />
+        </div>
+        <div class="form-group">
+          <label>Estado civil LOCADOR:</label
+          ><input type="text" id="locadorCivil" value="casado" />
+        </div>
+
+        <div class="form-group">
+          <label>Gênero do LOCATÁRIO(A):</label>
+          <select id="generoLocatario">
+            <option value="feminino">Feminino (Locatária)</option>
+            <option value="masculino">Masculino (Locatário)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Nome do LOCATÁRIO(A):</label
+          ><input
+            type="text"
+            id="locatariaNome"
+            value="ROSANA SOARES DA SILVA"
+          />
+        </div>
+        <div class="form-group">
+          <label>CPF do LOCATÁRIO(A):</label
+          ><input type="text" id="locatariaCpf" value="656.733.445-20" />
+        </div>
+        <div class="form-group">
+          <label>RG do LOCATÁRIO(A):</label
+          ><input type="text" id="locatariaRg" value="11.631.332-30" />
+        </div>
+
+        <div class="form-group full-width">
+          <label>Endereço completo do imóvel:</label
+          ><input
+            type="text"
+            id="endImovel"
+            value="RUA H -- PANORAMA 2 A, Nº 06, ALTO MARON -- VITÓRIA DA CONQUISTA-BA"
+          />
+        </div>
+        <div class="form-group">
+          <label>Data INÍCIO:</label
+          ><input type="text" id="dataInicio" value="28/08/2024" />
+        </div>
+        <div class="form-group">
+          <label>Data TÉRMINO:</label
+          ><input type="text" id="dataFim" value="28/01/2025" />
+        </div>
+        <div class="form-group">
+          <label>Valor do aluguel (R$):</label
+          ><input type="text" id="valorAluguel" value="400,00" />
+        </div>
+        <div class="form-group">
+          <label>Foro/Comarca:</label
+          ><input type="text" id="cidadeForo" value="Barra do Choça-BA" />
+        </div>
+        <div class="form-group full-width">
+          <label>Data da assinatura:</label
+          ><input
+            type="text"
+            id="dataAssinatura"
+            value="28 de Agosto de 2024"
+          />
+        </div>
+      </div>
+      <button id="gerarContratoBtn">📝 GERAR CONTRATO</button>
+      <button id="printPdfBtn" class="btn-print">
+        🖨️ IMPRIMIR / SALVAR PDF (Rubrica no rodapé)
+      </button>
+    </div>
+
+    <div class="contract-preview">
+      <div id="contractContent" class="contract-doc"></div>
+    </div>
+
+    <script>
+      function numeroPorExtenso(valor) {
+        const inteiro = Math.floor(valor);
+        if (inteiro === 400) return "quatrocentos";
+        return "quatrocentos";
+      }
+
+      function aplicarGenero(texto, genero) {
+        if (genero === "masculino") {
+          return texto
+            .replace(/LOCATÁRIA/g, "LOCATÁRIO")
+            .replace(/Locatária/g, "Locatário")
+            .replace(/locatária/g, "locatário")
+            .replace(/À LOCATÁRIA/g, "AO LOCATÁRIO")
+            .replace(/à locatária/g, "ao locatário")
+            .replace(/DA LOCATÁRIA/g, "DO LOCATÁRIO")
+            .replace(/da locatária/g, "do locatário")
+            .replace(/PELA LOCATÁRIA/g, "PELO LOCATÁRIO")
+            .replace(/pela locatária/g, "pelo locatário")
+            .replace(/A LOCATÁRIA/g, "O LOCATÁRIO")
+            .replace(/a locatária/g, "o locatário")
+            .replace(/LOCATÁRIA\./g, "LOCATÁRIO.")
+            .replace(/LOCATÁRIA,/g, "LOCATÁRIO,")
+            .replace(/LOCATÁRIA /g, "LOCATÁRIO ");
+        }
+        return texto;
+      }
+
+      function generateContract() {
+        const locadorNome =
+          document.getElementById("locadorNome").value.trim() ||
+          "PAULO SERGIO SANTOS DE ALMEIDA";
+        const locadorCpf =
+          document.getElementById("locadorCpf").value.trim() ||
+          "868.272.275-53";
+        const locadorRg =
+          document.getElementById("locadorRg").value.trim() || "07.339.606-00";
+        const locadorEndereco =
+          document.getElementById("locadorEnd").value.trim() ||
+          "BARRA NOVA, distrito de BARRA DO CHOÇA-BA";
+        const locadorCivil =
+          document.getElementById("locadorCivil").value.trim() || "casado";
+        const genero = document.getElementById("generoLocatario").value;
+        let locatarioNome =
+          document.getElementById("locatariaNome").value.trim() ||
+          "ROSANA SOARES DA SILVA";
+        const locatarioCpf =
+          document.getElementById("locatariaCpf").value.trim() ||
+          "656.733.445-20";
+        const locatarioRg =
+          document.getElementById("locatariaRg").value.trim() ||
+          "11.631.332-30";
+        const endImovel =
+          document.getElementById("endImovel").value.trim() ||
+          "RUA H -- PANORAMA 2 A, Nº 06, ALTO MARON -- VITÓRIA DA CONQUISTA-BA";
+        const dataInicio =
+          document.getElementById("dataInicio").value.trim() || "28/08/2024";
+        const dataFim =
+          document.getElementById("dataFim").value.trim() || "28/01/2025";
+        let valorAluguelStr = document
+          .getElementById("valorAluguel")
+          .value.trim()
+          .replace(",", ".");
+        if (!valorAluguelStr) valorAluguelStr = "400.00";
+        const valorNum = parseFloat(valorAluguelStr);
+        const valorFormatado = valorAluguelStr.replace(".", ",");
+        const extenso = numeroPorExtenso(valorNum);
+        const cidadeForo =
+          document.getElementById("cidadeForo").value.trim() ||
+          "Barra do Choça-BA";
+        const dataAssinatura =
+          document.getElementById("dataAssinatura").value.trim() ||
+          "28 de Agosto de 2024";
+
+        const tituloLocatario =
+          genero === "masculino" ? "LOCATÁRIO" : "LOCATÁRIA";
+
+        let contratoBase = `
+            <h1>CONTRATO DE LOCAÇÃO</h1>
+            
+            <table class="dados-table">
+                <tr><td style="font-weight:bold; width:30%">LOCADOR</td><td>${locadorNome}</td></tr>
+                <tr><td style="font-weight:bold">${tituloLocatario}</td><td>${locatarioNome}</td></tr>
+                <tr><td style="font-weight:bold">ENDEREÇO DO IMÓVEL</td><td>${endImovel}</td></tr>
+                <tr><td style="font-weight:bold">PRAZO DO CONTRATO</td><td>De ${dataInicio} a ${dataFim}</td></tr>
+                <tr><td style="font-weight:bold">ALUGUEL MENSAL</td><td>R$ ${valorFormatado} (${extenso} reais)</td></tr>
+              </table>
+            
+            <p>Entre as partes, na qualidade de LOCADOR: <strong>${locadorNome}</strong>, inscrito no CPF sob o nº <strong>${locadorCpf}</strong>, estabelecido em ${locadorEndereco}, brasileiro, ${locadorCivil}, portador da cédula de identidade nº <strong>${locadorRg}</strong>, e na qualidade de ${tituloLocatario}: <strong>${locatarioNome}</strong>, devidamente inscrito no CPF sob o nº <strong>${locatarioCpf}</strong>, RG nº <strong>${locatarioRg}</strong>, pelo presente Instrumento Particular, a locação do imóvel abaixo caracterizado, mediante as cláusulas e condições a seguir enumeradas.</p>
+            
+            <div class="clausula-titulo">I - DO IMÓVEL</div>
+            <p class="sub-item">a) O objeto do presente Instrumento de Contrato de Locação é o imóvel sito na <strong>${endImovel}</strong>.</p>
+            <p class="sub-item">b) A LOCATÁRIA confessa receber o imóvel em perfeito estado de conservação limpeza, obrigando-se assim conserva-lo e restitui-los nos termos do Presente Contrato, na conformidade do disposto na cláusula XI, inclusive no tocante aos aparelhos em geral que, se substituídos, deverão ser substituídos por outro similar em marca, modelo e qualidade.</p>
+            <p class="sub-item">c) Sob pena de responsabilidade civil da LOCATÁRIA, deverão ser imediatamente levados ao conhecimento do LOCADOR quaisquer papeis ou documentos entregues aos cuidados da LOCATÁRIA, desde que se refiram aos interesses diretos da LOCADOR ou do imóvel, ficando a LOCATÁRIA, responsável pelas multas que forem a este aplicada em razão do descumprimento dessa obrigação.</p>
+            <p class="sub-item">d) A LOCATÁRIA será responsável por quaisquer multas em que possa incorrer por desrespeito as leis federais, estaduais ou municipais. Outrossim, serão de exclusiva responsabilidade da LOCATÁRIA quaisquer danos que venham a ser causados a terceiros, inclusive os vizinhos, pelo mau uso do imóvel locado.</p>
+            
+            <div class="clausula-titulo">II DO USO DO IMÓVEL</div>
+            <p class="sub-item">a) O imóvel destina-se exclusivamente ao uso RESIDENCIAL, sendo vedado a LOCATÁRIA dar-lhe outra destinação, subloca-lo, cede-lo, ou empresta-lo no todo ou em parte, que título for. Caso fique constatado algum desses atos, o aluguel será acrescido de 50% (cinquenta por cento) do valor do aluguel mensal, sem direito aos descontos, a título de multa contratual, até que seja desocupado pela via judicial cabível ou devolução nas condições estabelecidas neste Instrumento.</p>
+            <p class="sub-item">b) Cumpre a LOCATÁRIA fazer imediata comunicação por escrito ao LOCADOR, sempre que ocorrer qualquer avaria grave na estrutura do imóvel ou nas suas instalações, onde não poderão ser depositados artigos inflamáveis, explosivos ou de fácil deterioração.</p>
+            <p class="sub-item">c) Responde a LOCATÁRIA, pelo incêndio lavrado no imóvel, se não provar caso fortuito ou força maior, vicio de construção ou de propagação de fogo em outra casa.</p>
+            <p class="sub-item">d) A ocorrência de desastre desencadeado por forças da natureza ou sobre-humanas tais como faixas elétricas, inundações, desabamentos, abalos sísmicos, etc., ou acidentes naturais motivados por terceiros, não acarretará a responsabilidade solidário do LOCADOR pelos eventos matérias ou pessoais acaso surgidos, com relação a pertences aos haveres e a segurança pessoal dos ocupantes.</p>
+            <p class="sub-item">e) Além da ocorrência de qualquer evento previsto no item anterior, o LOCADOR também não se responsabiliza a indenizar a LOCATÁRIA, a qualquer título que for, por danos materiais ou pessoais, ocasionado por roubo, furto, arrombamento do imóvel ou depredações provadas por distúrbios que não possam ser contidos.</p>
+            <p class="sub-item">f) fica assegurado ao LOCADOR ou a pessoa de sua confiança o direito de inspecionar, quando julgar conveniente, o imóvel ora locado, a fim de constatar a observância e cumprimento de todos as cláusulas e condições deste contrato e, caso o LOCADOR deseja alienar o imóvel, obriga-se a LOCATÁRIA a permitir que o mesmo seja visitado por candidatos a respectiva aquisição, em horário a ser combinado com o LOCADOR, sob a pena de rescisão imediata deste contrato.</p>
+            
+            <div class="clausula-titulo">III - DO PRAZO</div>
+            <p class="sub-item">a) O presente contrato entrará em vigor no <strong>DIA ${dataInicio} E TERMINARÁ NO DIA ${dataFim}</strong>, data em que a LOCATÁRIA se obriga a restituir o imóvel locado completamente desocupado, ficando o LOCADOR eximido da obrigação de comunicação prévia a LOCATÁRIA.</p>
+            <p class="sub-item">b) A locação findará na data acima mencionada independentemente de qualquer aviso ou interpelação judicial ou extrajudicial, não se havendo como presumida falta de oposição do LOCADOR o fato de, findo o prazo continuar a LOCATÁRIA na posse da coisa alugado, por qualquer motivo.</p>
+            <p class="sub-item">c) Com a ressalva do dito na letra "d", antes do vencimento do presente contrato não poderá o LOCADOR reaver o imóvel locado senão ressarcindo a LOCATÁRIA as perdas e danos resultantes que equivalerão ao montante dos alugueis vencidos, nem poderá a LOCATÁRIA, sob qualquer pretexto. Devolver o imóvel, senão pagando ao LOCADOR os alugueis relativos ao tempo que resta, desde que haja aviso por escrito no prazo mínimo de 30 (trinta) dias de acordo com a legislação vigente.</p>
+            <p class="sub-item">d) O presente contrato poderá ser rescindo, em qualquer tempo, desde que haja recíproca anuência das partes.</p>
+            <p class="sub-item">e) A ocorrência de qualquer sinistro que afete a segurança ou a integridade do imóvel bem como a hipótese eventual de sua desapropriação, acarretará a imediata rescisão deste contrato, não assistindo a LOCATÁRIA o direito de reclamar do LOCADOR qualquer indenização por prejuízos que venha sofrer por esses motivos.</p>
+            <p class="sub-item">f) Continuando a LOCATÁRIA na residência locada após o término no prazo contratual subsistirão as condições ora ajustadas, com as ressalvas da lei.</p>
+            
+            <div class="clausula-titulo">IV - DO ALUGUEL</div>
+            <p class="sub-item">a) O valor mensal do aluguel será de <strong>R$ ${valorFormatado}</strong> que a LOCATÁRIA deverá pagar o mesmo no endereço do LOCADOR ou a de seu representante.</p>
+            <p class="sub-item">b) Fica estipulada multa no valor de 10% (dez por cento) do valor do aluguel mensal do imóvel mais 2,0% (dois por cento) de juros ao dia, no caso de pagamento do aluguel em atraso.</p>
+            <p class="sub-item">c) Findo o prazo da presente locação e continuando a LOCATÁRIA na posse do imóvel objeto deste contrato, deverá o mesmo pagar o aluguel estipulado, pelo LOCADOR, corrigido mensalmente de acordo com o índice aqui pactuado, a partir do 9º (nono) mês.</p>
+            <p class="sub-item">d) Se, notificado a LOCATÁRIA, não restituir a coisa, pagará, enquanto a tiver em seu poder, o aluguel que o LOCADOR arbitrar (art. 1196, do CCB), respondendo ainda, por qualquer dano que bem venha sofrer, ainda que proveniente de caso fortuito.</p>
+            <p class="sub-item">e) Se na vigência do contrato, o LOCADOR por si ou seu proposto admitir, em benefício da LOCATÁRIA, alguma demora nos pagamentos dos alugueis ou no cumprimento de quaisquer outras obrigações, tal tolerância não poderá ser considerada novação ou modificação de qualquer condição deste contrato, não dando ensejo à invocação do Artigo 1503 do Código Civil, permanecendo em vigor as cláusulas e condições como se nenhum benefício houvesse intercorrido.</p>
+            <p class="sub-item">f) Se na vigência do contrato, ou em sua prorrogação legal, será utilizado como índice de correção do mesmo os índices estipulados pelos órgãos governamentais competentes, sendo que sua vigência será automática, reajustando assim o valor mensal do referido contrato sem que seja necessário o aviso prévio, pois este índice é divulgado pelos órgãos competentes por isso se dispensa o aviso.</p>
+            <p class="sub-item">g) Além do aluguel mensal e os encargos previstos na lei vigente a LOCATÁRIA, deverá pagar o IPTU/TLP, conta de água, conta de energia e as taxas municipais incidentes sobre o imóvel. As contas deverão ser pagas até o dia do vencimento ficando a cargo da LOCATÁRIA as despesas de multa e juros acrescidos ao valor das respectivas taxas devido ao não pagamento das mesmas nas suas respectivas datas de vencimento.</p>
+            <p class="sub-item">h) Caso a LOCATÁRIA realizar as obras de recuperação de estragos a que der causa, inclusive referentes às partes comuns do imóvel, desde que os estragos tenham sido causados pela LOCATÁRIA.</p>
+            <p class="sub-item">i) Caso a LOCATÁRIA efetue o pagamento em cheque dentro do prazo que lhe permite a letra "a" da presente cláusula e se o referido cheque for devolvido por qualquer motivo, deverá pagar o valor integral da prestação com as demais multas e juros contratuais.</p>
+            <p class="sub-item">j) O pagamento da prestação locatícia antes do vencimento não constitui obrigação da LOCATÁRIA, nem exigência do LOCADOR ou da administradora, ficando entendido que se tal fato ocorrer, será por livre e espontânea vontade e conveniência do LOCATÁRIO.</p>
+            
+            <div class="clausula-titulo">V - DAS REPARAÇÕES E BENFEITORIAS</div>
+            <p class="sub-item">a) Sem prévia autorização escrita do LOCADOR, é vedado ao locatário executar quaisquer benfeitorias úteis ao imóvel.</p>
+            <p class="sub-item">b) A LOCATÁRIA se obriga a manter o imóvel e suas instalações de acordo com o padrão encontrado no primeiro dia de contrato.</p>
+            <p class="sub-item">d) Quaisquer modificações, reformas, acréscimos, todas as benfeitorias sejam voluntárias, úteis ou necessárias realizadas pela LOCATÁRIA, ficarão definitivamente incorporadas ao imóvel, independente mente da indenização e sem direito de retenção da coisa locado, podendo no entanto, o LOCADOR exigir da LOCATÁRIA, a época da devolução do imóvel, que esteja o mesmo em seu estado primitivo, sem quaisquer vestígios das ditas alterações, correndo por conta da LOCATÁRIA todas as despesas necessárias a repor o imóvel em seu estado original.</p>
+            
+            <div class="clausula-titulo">VI - DA INFRAÇÃO CONTRATUAL</div>
+            <p class="sub-item">a) A infrigência de qualquer disposição deste contrato sujeita o infrator a cominação de uma multa equivalente a 50% (cinquenta por cento) sobre seu valor, ou sobre uma anuidade se tratar de locação prorrogada por prazo indeterminado, sem prejuízo das outras sanções cabíveis e de indenização por perdas e danos.</p>
+            
+            <div class="clausula-titulo">VII - DO ABANDONO DO IMÓVEL</div>
+            <p class="sub-item">a) A fim de resguardar-se o imóvel de qualquer eventualidade decorrente da ausência de ocupação, e no intuito de defender-se a sua integridade contra possíveis esbulhos ou depredações, fica o LOCADOR expressamente autorizado a ocupar o imóvel, independentemente de qualquer procedimento judicial prévio, ainda que seja necessário o emprego de força para arrombá-lo, desde que fique suficientemente comprovado o abandono do imóvel pela LOCATÁRIA, caracterizando-se também como abandono à ausência habitual e comprovado do inquilino depois de vencido o 2º (segundo) mês sem o pagamento dos alugueis respectivos.</p>
+            
+            <div class="clausula-titulo">VIII - DAS OBRIGAÇÕES SUCESSÓRIAS</div>
+            <p>As partes desde já se obrigam, por si, seus herdeiros ou sucessores, ao plano geral e irrenunciável cumprimento do Presente Instrumento de Contrato de Locação, em todas as suas cláusulas e condições.</p>
+            
+            <div class="clausula-titulo">IX - DAS RESTRIÇÕES DO IMÓVEL</div>
+            <p class="sub-item">a) O termo final do presente contrato dar-se-á com a assinatura do LOCADOR de um TERMO DE RECEBIMENTO DO IMÓVEL, verificado previamente o seu estado de conservação e desde que estejam liquidados todos os encargos financeiros decorrentes do presente.</p>
+            <p class="sub-item">b) Caso o imóvel apresente estragos carente de recuperação, poderá o LOCADOR ou seu preposto executar os serviços de reparação que fizerem necessárias, mediante a tomada de preços de 03 (três) firmas especializadas, fincado, desde já, ajustado que não o ressarcimento por parte da LOCATÁRIA das despesas efetuada e do pagamento do aluguel no tempo necessário à reposição nas condições idênticas ao TERMO DE VISTORIA feita pelo LOCADOR E LOCATÁRIA, autorizará a sua respectiva cobrança, servindo de título hábil o recibo passado pelo executante dos referidos serviços.</p>
+            <p class="sub-item">c) Nos casos em que houver caução em dinheiro, as despesas acima referidas serão deduzidas da mesma, devolvendo-se o saldo credor, se houver. Caso haja saldo devedor, este será cobrado na mesma forma estipulada na letra "b", que contem estas cláusulas.</p>
+            <p class="sub-item">d) Em sendo pessoa jurídica, a LOCATÁRIA deverá apresentar no ato da devolução das chaves, o documento de transferência ou baixa de firma fornecida pelo órgão fiscal competente, para que o LOCADOR possa realugar o imóvel de imediato e sem entrava, sem que o contrato continuará em pleno vigor.</p>
+            
+            <div class="clausula-titulo">X - DO FORO</div>
+            <p>Com a renuncia expressa de qualquer outro, por mais privilegiado que seja, fica eleito o Foro da Comarca de ${cidadeForo}, para dirimir qualquer questão oriunda do presente contrato.</p>
+            
+            <div class="clausula-titulo">XI - DISCRIÇÃO DO ESTADO DO IMÓVEL</div>
+            <p>O imóvel objeto do presente contrato é entregue a LOCATÁRIA em perfeito estado de conservação e limpeza, com todas as instalações elétricas, sanitárias, hidráulicas em perfeito funcionamento.</p>
+            
+            <p>Estando todos em pleno acordo, justo e contratado, lavrou-se o presente instrumento de contrato em 02 (duas) vias de igual teor e forma, o qual depois lido e achado conforme, vai assinado pelas partes contratantes, pelos fiadores e por 02 (duas) testemunhas abaixo indicadas.</p>
+            
+            <p class="footer-data"><strong>${cidadeForo}, ${dataAssinatura}</strong></p>
+            
+            <div class="assinatura-area">
+                <div class="linha-assinatura">_____________________________________________________________<br><strong>LOCADOR</strong></div>
+                <div class="linha-assinatura">_____________________________________________________________<br><strong>${tituloLocatario}</strong></div>
+            </div>
+            
+            <div class="testemunhas-area">
+                <div class="testemunha-item"><div class="testemunha-linha">____________________________________</div><div>Testemunha 1</div></div>
+                <div class="testemunha-item"><div class="testemunha-linha">____________________________________</div><div>Testemunha 2</div></div>
+            </div>
+        `;
+
+        let contratoFinal = contratoBase;
+        if (genero === "masculino") {
+          contratoFinal = aplicarGenero(contratoBase, genero);
+        }
+
+        document.getElementById("contractContent").innerHTML = contratoFinal;
+      }
+
+      // Adiciona CSS dinâmico para a rubrica no rodapé com o texto correto
+      function updatePrintRubrica() {
+        const genero = document.getElementById("generoLocatario").value;
+        const label = genero === "masculino" ? "LOCATÁRIO" : "LOCATÁRIA";
+
+        // Cria ou atualiza o estilo da rubrica no rodapé
+        let style = document.getElementById("print-rubrica-style");
+        if (!style) {
+          style = document.createElement("style");
+          style.id = "print-rubrica-style";
+          document.head.appendChild(style);
+        }
+
+        style.innerHTML = `
+            @media print {
+                @page {
+                    margin: 0.5in 0.6in;
+                    @bottom-center {
+                        content: "Rubrica do LOCADOR                            Rubrica do ${label}";
+                        font-size: 9pt;
+                        font-family: 'Times New Roman', Times, serif;
+                        border-top: 1px solid #999;
+                        padding-top: 8px;
+                        margin-bottom: 0.2in;
+                        width: 100%;
+                    }
+                }
+            }
+        `;
+      }
+
+      function printContract() {
+        updatePrintRubrica();
+        generateContract();
+        setTimeout(() => {
+          window.print();
+        }, 100);
+      }
+
+      document
+        .getElementById("gerarContratoBtn")
+        .addEventListener("click", () => {
+          generateContract();
+        });
+      document
+        .getElementById("printPdfBtn")
+        .addEventListener("click", printContract);
+      document
+        .getElementById("generoLocatario")
+        .addEventListener("change", () => {
+          generateContract();
+          updatePrintRubrica();
+        });
+
+      generateContract();
+      updatePrintRubrica();
+    </script>
+  </body>
+</html>

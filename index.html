@@ -224,25 +224,6 @@
           padding: 0.5in 0.6in;
         }
 
-        /* Define a rubrica no rodapé de CADA página */
-        @page {
-          margin: 0.5in 0.6in;
-          @bottom-center {
-            content: "_________________________________________________________";
-            font-size: 9pt;
-            font-family: "Times New Roman", Times, serif;
-            margin-bottom: 0.2in;
-          }
-        }
-
-        /* Título da rubrica aparece via before/after */
-        @page :left {
-          @bottom-center {
-            content: "Rubrica do LOCADOR                                 Rubrica do "
-              counter(page);
-          }
-        }
-
         .contract-doc > *:first-child {
           margin-top: 0;
           padding-top: 0;
@@ -270,7 +251,6 @@
         }
       }
 
-      /* Alternativa para navegadores que não suportam @bottom-center com texto complexo */
       .print-footer-fallback {
         display: none;
       }
@@ -285,28 +265,28 @@
           ><input
             type="text"
             id="locadorNome"
-            value="PAULO SERGIO SANTOS DE ALMEIDA"
+            value="JOAQUIM PEREIRA DA ROCHA"
           />
         </div>
         <div class="form-group">
           <label>CPF do LOCADOR:</label
-          ><input type="text" id="locadorCpf" value="868.272.275-53" />
+          ><input type="text" id="locadorCpf" value="111.222.333-44" />
         </div>
         <div class="form-group">
           <label>RG do LOCADOR:</label
-          ><input type="text" id="locadorRg" value="07.339.606-00" />
+          ><input type="text" id="locadorRg" value="22.333.444-55" />
         </div>
         <div class="form-group">
           <label>Endereço (LOCADOR):</label
           ><input
             type="text"
             id="locadorEnd"
-            value="BARRA NOVA, distrito de BARRA DO CHOÇA-BA"
+            value="RUA DAS ACÁCIAS, 789, BAIRRO ALEGRETE - FEIRA DE SANTANA-BA"
           />
         </div>
         <div class="form-group">
           <label>Estado civil LOCADOR:</label
-          ><input type="text" id="locadorCivil" value="casado" />
+          ><input type="text" id="locadorCivil" value="divorciado" />
         </div>
 
         <div class="form-group">
@@ -322,16 +302,16 @@
           ><input
             type="text"
             id="locatariaNome"
-            value="ROSANA SOARES DA SILVA"
+            value="FERNANDA LIMA DOS SANTOS"
           />
         </div>
         <div class="form-group">
           <label>CPF do LOCATÁRIO(A):</label
-          ><input type="text" id="locatariaCpf" value="656.733.445-20" />
+          ><input type="text" id="locatariaCpf" value="555.666.777-88" />
         </div>
         <div class="form-group">
           <label>RG do LOCATÁRIO(A):</label
-          ><input type="text" id="locatariaRg" value="11.631.332-30" />
+          ><input type="text" id="locatariaRg" value="33.444.555-66" />
         </div>
 
         <div class="form-group full-width">
@@ -339,32 +319,28 @@
           ><input
             type="text"
             id="endImovel"
-            value="RUA H -- PANORAMA 2 A, Nº 06, ALTO MARON -- VITÓRIA DA CONQUISTA-BA"
+            value="RUA PROJETADA, 101, BAIRRO NOVO HORIZONTE - FEIRA DE SANTANA-BA"
           />
         </div>
         <div class="form-group">
           <label>Data INÍCIO:</label
-          ><input type="text" id="dataInicio" value="28/08/2024" />
+          ><input type="text" id="dataInicio" value="10/04/2025" />
         </div>
         <div class="form-group">
           <label>Data TÉRMINO:</label
-          ><input type="text" id="dataFim" value="28/01/2025" />
+          ><input type="text" id="dataFim" value="10/10/2025" />
         </div>
         <div class="form-group">
           <label>Valor do aluguel (R$):</label
-          ><input type="text" id="valorAluguel" value="400,00" />
+          ><input type="text" id="valorAluguel" value="750,00" />
         </div>
         <div class="form-group">
           <label>Foro/Comarca:</label
-          ><input type="text" id="cidadeForo" value="Barra do Choça-BA" />
+          ><input type="text" id="cidadeForo" value="Feira de Santana-BA" />
         </div>
         <div class="form-group full-width">
           <label>Data da assinatura:</label
-          ><input
-            type="text"
-            id="dataAssinatura"
-            value="28 de Agosto de 2024"
-          />
+          ><input type="text" id="dataAssinatura" value="10 de Abril de 2025" />
         </div>
       </div>
       <button id="gerarContratoBtn">📝 GERAR CONTRATO</button>
@@ -381,7 +357,9 @@
       function numeroPorExtenso(valor) {
         const inteiro = Math.floor(valor);
         if (inteiro === 400) return "quatrocentos";
-        return "quatrocentos";
+        if (inteiro === 750) return "setecentos e cinquenta";
+        if (inteiro === 850) return "oitocentos e cinquenta";
+        return "setecentos e cinquenta";
       }
 
       function aplicarGenero(texto, genero) {
@@ -408,48 +386,48 @@
       function generateContract() {
         const locadorNome =
           document.getElementById("locadorNome").value.trim() ||
-          "PAULO SERGIO SANTOS DE ALMEIDA";
+          "JOAQUIM PEREIRA DA ROCHA";
         const locadorCpf =
           document.getElementById("locadorCpf").value.trim() ||
-          "868.272.275-53";
+          "111.222.333-44";
         const locadorRg =
-          document.getElementById("locadorRg").value.trim() || "07.339.606-00";
+          document.getElementById("locadorRg").value.trim() || "22.333.444-55";
         const locadorEndereco =
           document.getElementById("locadorEnd").value.trim() ||
-          "BARRA NOVA, distrito de BARRA DO CHOÇA-BA";
+          "RUA DAS ACÁCIAS, 789, BAIRRO ALEGRETE - FEIRA DE SANTANA-BA";
         const locadorCivil =
-          document.getElementById("locadorCivil").value.trim() || "casado";
+          document.getElementById("locadorCivil").value.trim() || "divorciado";
         const genero = document.getElementById("generoLocatario").value;
         let locatarioNome =
           document.getElementById("locatariaNome").value.trim() ||
-          "ROSANA SOARES DA SILVA";
+          "FERNANDA LIMA DOS SANTOS";
         const locatarioCpf =
           document.getElementById("locatariaCpf").value.trim() ||
-          "656.733.445-20";
+          "555.666.777-88";
         const locatarioRg =
           document.getElementById("locatariaRg").value.trim() ||
-          "11.631.332-30";
+          "33.444.555-66";
         const endImovel =
           document.getElementById("endImovel").value.trim() ||
-          "RUA H -- PANORAMA 2 A, Nº 06, ALTO MARON -- VITÓRIA DA CONQUISTA-BA";
+          "RUA PROJETADA, 101, BAIRRO NOVO HORIZONTE - FEIRA DE SANTANA-BA";
         const dataInicio =
-          document.getElementById("dataInicio").value.trim() || "28/08/2024";
+          document.getElementById("dataInicio").value.trim() || "10/04/2025";
         const dataFim =
-          document.getElementById("dataFim").value.trim() || "28/01/2025";
+          document.getElementById("dataFim").value.trim() || "10/10/2025";
         let valorAluguelStr = document
           .getElementById("valorAluguel")
           .value.trim()
           .replace(",", ".");
-        if (!valorAluguelStr) valorAluguelStr = "400.00";
+        if (!valorAluguelStr) valorAluguelStr = "750.00";
         const valorNum = parseFloat(valorAluguelStr);
         const valorFormatado = valorAluguelStr.replace(".", ",");
         const extenso = numeroPorExtenso(valorNum);
         const cidadeForo =
           document.getElementById("cidadeForo").value.trim() ||
-          "Barra do Choça-BA";
+          "Feira de Santana-BA";
         const dataAssinatura =
           document.getElementById("dataAssinatura").value.trim() ||
-          "28 de Agosto de 2024";
+          "10 de Abril de 2025";
 
         const tituloLocatario =
           genero === "masculino" ? "LOCATÁRIO" : "LOCATÁRIA";
@@ -550,10 +528,18 @@
         document.getElementById("contractContent").innerHTML = contratoFinal;
       }
 
-      // Adiciona CSS dinâmico para a rubrica no rodapé com o texto correto
+      // Atualiza a rubrica no rodapé com os NOMES das partes e espaçamento adequado
       function updatePrintRubrica() {
         const genero = document.getElementById("generoLocatario").value;
         const label = genero === "masculino" ? "LOCATÁRIO" : "LOCATÁRIA";
+
+        // Pega os nomes dos campos
+        const locadorNome =
+          document.getElementById("locadorNome").value.trim() ||
+          "JOAQUIM PEREIRA DA ROCHA";
+        const locatarioNome =
+          document.getElementById("locatariaNome").value.trim() ||
+          "FERNANDA LIMA DOS SANTOS";
 
         // Cria ou atualiza o estilo da rubrica no rodapé
         let style = document.getElementById("print-rubrica-style");
@@ -566,15 +552,25 @@
         style.innerHTML = `
             @media print {
                 @page {
-                    margin: 0.5in 0.6in;
-                    @bottom-center {
-                        content: "Rubrica do LOCADOR                            Rubrica do ${label}";
-                        font-size: 9pt;
+                    margin: 0.5in 0.6in 1in 0.6in;
+                    @bottom-left {
+                        content: "Rubrica: ${locadorNome}";
+                        font-size: 8pt;
                         font-family: 'Times New Roman', Times, serif;
                         border-top: 1px solid #999;
-                        padding-top: 8px;
+                        padding-top: 6px;
                         margin-bottom: 0.2in;
-                        width: 100%;
+                        width: 45%;
+                    }
+                    @bottom-right {
+                        content: "Rubrica: ${locatarioNome}";
+                        font-size: 8pt;
+                        font-family: 'Times New Roman', Times, serif;
+                        border-top: 1px solid #999;
+                        padding-top: 6px;
+                        margin-bottom: 0.2in;
+                        width: 45%;
+                        text-align: right;
                     }
                 }
             }

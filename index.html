@@ -354,14 +354,6 @@
     </div>
 
     <script>
-      function numeroPorExtenso(valor) {
-        const inteiro = Math.floor(valor);
-        if (inteiro === 400) return "quatrocentos";
-        if (inteiro === 750) return "setecentos e cinquenta";
-        if (inteiro === 850) return "oitocentos e cinquenta";
-        return "setecentos e cinquenta";
-      }
-
       function aplicarGenero(texto, genero) {
         if (genero === "masculino") {
           return texto
@@ -421,7 +413,6 @@
         if (!valorAluguelStr) valorAluguelStr = "750.00";
         const valorNum = parseFloat(valorAluguelStr);
         const valorFormatado = valorAluguelStr.replace(".", ",");
-        const extenso = numeroPorExtenso(valorNum);
         const cidadeForo =
           document.getElementById("cidadeForo").value.trim() ||
           "Feira de Santana-BA";
@@ -440,7 +431,7 @@
                 <tr><td style="font-weight:bold">${tituloLocatario}</td><td>${locatarioNome}</td></tr>
                 <tr><td style="font-weight:bold">ENDEREÇO DO IMÓVEL</td><td>${endImovel}</td></tr>
                 <tr><td style="font-weight:bold">PRAZO DO CONTRATO</td><td>De ${dataInicio} a ${dataFim}</td></tr>
-                <tr><td style="font-weight:bold">ALUGUEL MENSAL</td><td>R$ ${valorFormatado} (${extenso} reais)</td></tr>
+                <tr><td style="font-weight:bold">ALUGUEL MENSAL</td><td>R$ ${valorFormatado}</td></tr>
               </table>
             
             <p>Entre as partes, na qualidade de LOCADOR: <strong>${locadorNome}</strong>, inscrito no CPF sob o nº <strong>${locadorCpf}</strong>, estabelecido em ${locadorEndereco}, brasileiro, ${locadorCivil}, portador da cédula de identidade nº <strong>${locadorRg}</strong>, e na qualidade de ${tituloLocatario}: <strong>${locatarioNome}</strong>, devidamente inscrito no CPF sob o nº <strong>${locatarioCpf}</strong>, RG nº <strong>${locatarioRg}</strong>, pelo presente Instrumento Particular, a locação do imóvel abaixo caracterizado, mediante as cláusulas e condições a seguir enumeradas.</p>

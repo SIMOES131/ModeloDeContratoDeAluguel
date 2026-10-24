@@ -115,7 +115,6 @@
         color: #000;
       }
 
-      /* Estilos do documento */
       .contract-doc h1 {
         text-align: center;
         font-size: 16pt;
@@ -198,7 +197,6 @@
         text-align: right;
       }
 
-      /* ========== ESTILO PARA IMPRESSÃO COM RUBRICA NO RODAPÉ ========== */
       @media print {
         body {
           background: white;
@@ -261,7 +259,7 @@
       <h2>📄 GERADOR DE CONTRATO DE LOCAÇÃO</h2>
       <div class="form-grid">
         <div class="form-group">
-          <label>LOCADOR (nome completo):</label
+          <label>LOCADOR(A) (nome completo):</label
           ><input
             type="text"
             id="locadorNome"
@@ -269,15 +267,15 @@
           />
         </div>
         <div class="form-group">
-          <label>CPF do LOCADOR:</label
+          <label>CPF do LOCADOR(A):</label
           ><input type="text" id="locadorCpf" value="111.222.333-44" />
         </div>
         <div class="form-group">
-          <label>RG do LOCADOR:</label
+          <label>RG do LOCADOR(A):</label
           ><input type="text" id="locadorRg" value="22.333.444-55" />
         </div>
         <div class="form-group">
-          <label>Endereço (LOCADOR):</label
+          <label>Endereço (LOCADOR(A)):</label
           ><input
             type="text"
             id="locadorEnd"
@@ -285,33 +283,25 @@
           />
         </div>
         <div class="form-group">
-          <label>Estado civil LOCADOR:</label
+          <label>Estado civil LOCADOR(A):</label
           ><input type="text" id="locadorCivil" value="divorciado" />
-        </div>
-
-        <div class="form-group">
-          <label>Gênero do LOCATÁRIO(A):</label>
-          <select id="generoLocatario">
-            <option value="feminino">Feminino (Locatária)</option>
-            <option value="masculino">Masculino (Locatário)</option>
-          </select>
         </div>
 
         <div class="form-group">
           <label>Nome do LOCATÁRIO(A):</label
           ><input
             type="text"
-            id="locatariaNome"
+            id="locatarioNome"
             value="FERNANDA LIMA DOS SANTOS"
           />
         </div>
         <div class="form-group">
           <label>CPF do LOCATÁRIO(A):</label
-          ><input type="text" id="locatariaCpf" value="555.666.777-88" />
+          ><input type="text" id="locatarioCpf" value="555.666.777-88" />
         </div>
         <div class="form-group">
           <label>RG do LOCATÁRIO(A):</label
-          ><input type="text" id="locatariaRg" value="33.444.555-66" />
+          ><input type="text" id="locatarioRg" value="33.444.555-66" />
         </div>
 
         <div class="form-group full-width">
@@ -354,33 +344,6 @@
     </div>
 
     <script>
-      function aplicarGenero(texto, genero) {
-        if (genero === "masculino") {
-          return texto
-            .replace(/LOCATÁRIA/g, "LOCATÁRIO")
-            .replace(/Locatária/g, "Locatário")
-            .replace(/locatária/g, "locatário")
-            .replace(/À LOCATÁRIA/g, "AO LOCATÁRIO")
-            .replace(/à locatária/g, "ao locatário")
-            .replace(/DA LOCATÁRIA/g, "DO LOCATÁRIO")
-            .replace(/da locatária/g, "do locatário")
-            .replace(/PELA LOCATÁRIA/g, "PELO LOCATÁRIO")
-            .replace(/pela locatária/g, "pelo locatário")
-            .replace(/A LOCATÁRIA/g, "O LOCATÁRIO")
-            .replace(/a locatária/g, "o locatário")
-            .replace(/LOCATÁRIA\./g, "LOCATÁRIO.")
-            .replace(/LOCATÁRIA,/g, "LOCATÁRIO,")
-            .replace(/LOCATÁRIA /g, "LOCATÁRIO ")
-            .replace(/O\(A\) LOCATÁRIA/g, "O LOCATÁRIO")
-            .replace(/O\(A\) locatária/g, "O locatário")
-            .replace(/AO\(À\) LOCATÁRIA/g, "AO LOCATÁRIO")
-            .replace(/AO\(À\) locatária/g, "AO locatário")
-            .replace(/À LOCATÁRIA/g, "AO LOCATÁRIO")
-            .replace(/à locatária/g, "ao locatário");
-        }
-        return texto;
-      }
-
       function generateContract() {
         const locadorNome =
           document.getElementById("locadorNome").value.trim().toUpperCase() ||
@@ -395,15 +358,14 @@
           "RUA DAS ACÁCIAS, 789, BAIRRO ALEGRETE - FEIRA DE SANTANA-BA";
         const locadorCivil =
           document.getElementById("locadorCivil").value.trim() || "divorciado";
-        const genero = document.getElementById("generoLocatario").value;
-        let locatarioNome =
-          document.getElementById("locatariaNome").value.trim().toUpperCase() ||
+        const locatarioNome =
+          document.getElementById("locatarioNome").value.trim().toUpperCase() ||
           "FERNANDA LIMA DOS SANTOS";
         const locatarioCpf =
-          document.getElementById("locatariaCpf").value.trim() ||
+          document.getElementById("locatarioCpf").value.trim() ||
           "555.666.777-88";
         const locatarioRg =
-          document.getElementById("locatariaRg").value.trim() ||
+          document.getElementById("locatarioRg").value.trim() ||
           "33.444.555-66";
         const endImovel =
           document.getElementById("endImovel").value.trim() ||
@@ -417,7 +379,6 @@
           .value.trim()
           .replace(",", ".");
         if (!valorAluguelStr) valorAluguelStr = "750.00";
-        const valorNum = parseFloat(valorAluguelStr);
         const valorFormatado = valorAluguelStr.replace(".", ",");
         const cidadeForo =
           document.getElementById("cidadeForo").value.trim() ||
@@ -426,91 +387,86 @@
           document.getElementById("dataAssinatura").value.trim() ||
           "10 de Abril de 2025";
 
-        const tituloLocatario =
-          genero === "masculino" ? "LOCATÁRIO" : "LOCATÁRIA";
-        const oaLocatario = genero === "masculino" ? "O LOCATÁRIO" : "A LOCATÁRIA";
-        const aoALocatario = genero === "masculino" ? "AO LOCATÁRIO" : "À LOCATÁRIA";
-
-        let contratoBase = `
+        let contrato = `
             <h1>CONTRATO DE LOCAÇÃO</h1>
             
             <table class="dados-table">
-                <tr><td style="font-weight:bold; width:30%">LOCADOR</td><td>${locadorNome}</td></tr>
-                <tr><td style="font-weight:bold">${tituloLocatario}</td><td>${locatarioNome}</td></tr>
+                <tr><td style="font-weight:bold; width:30%">LOCADOR(A)</td><td>${locadorNome}</td></tr>
+                <tr><td style="font-weight:bold">LOCATÁRIO(A)</td><td>${locatarioNome}</td></tr>
                 <tr><td style="font-weight:bold">ENDEREÇO DO IMÓVEL</td><td>${endImovel}</td></tr>
                 <tr><td style="font-weight:bold">PRAZO DO CONTRATO</td><td>De ${dataInicio} a ${dataFim}</td></tr>
                 <tr><td style="font-weight:bold">ALUGUEL MENSAL</td><td>R$ ${valorFormatado}</td></tr>
               </table>
             
-            <p>Entre as partes, na qualidade de LOCADOR: <strong>${locadorNome}</strong>, inscrito no CPF sob o nº <strong>${locadorCpf}</strong>, estabelecido em ${locadorEndereco}, brasileiro, ${locadorCivil}, portador da cédula de identidade nº <strong>${locadorRg}</strong>, e na qualidade de ${tituloLocatario}: <strong>${locatarioNome}</strong>, devidamente inscrito no CPF sob o nº <strong>${locatarioCpf}</strong>, RG nº <strong>${locatarioRg}</strong>, pelo presente Instrumento Particular, a locação do imóvel abaixo caracterizado, mediante as cláusulas e condições a seguir enumeradas.</p>
+            <p>Entre as partes, na qualidade de LOCADOR(A): <strong>${locadorNome}</strong>, inscrito no CPF sob o nº <strong>${locadorCpf}</strong>, estabelecido em ${locadorEndereco}, brasileiro, ${locadorCivil}, portador da cédula de identidade nº <strong>${locadorRg}</strong>, e na qualidade de LOCATÁRIO(A): <strong>${locatarioNome}</strong>, devidamente inscrito no CPF sob o nº <strong>${locatarioCpf}</strong>, RG nº <strong>${locatarioRg}</strong>, pelo presente Instrumento Particular, a locação do imóvel abaixo caracterizado, mediante as cláusulas e condições a seguir enumeradas.</p>
             
             <div class="clausula-titulo">I - DO IMÓVEL</div>
             <p class="sub-item">a) O objeto do presente Instrumento de Contrato de Locação é o imóvel sito na <strong>${endImovel}</strong>.</p>
-            <p class="sub-item">b) ${aoALocatario} confessa receber o imóvel em perfeito estado de conservação limpeza, obrigando-se assim conserva-lo e restitui-los nos termos do Presente Contrato, na conformidade do disposto na cláusula XI, inclusive no tocante aos aparelhos em geral que, se substituídos, deverão ser substituídos por outro similar em marca, modelo e qualidade.</p>
-            <p class="sub-item">c) Sob pena de responsabilidade civil ${oaLocatario.toLowerCase()}, deverão ser imediatamente levados ao conhecimento do LOCADOR quaisquer papeis ou documentos entregues aos cuidados ${oaLocatario.toLowerCase()}, desde que se refiram aos interesses diretos do LOCADOR ou do imóvel, ficando ${oaLocatario.toLowerCase()}, responsável pelas multas que forem a este aplicada em razão do descumprimento dessa obrigação.</p>
-            <p class="sub-item">d) ${oaLocatario} será responsável por quaisquer multas em que possa incorrer por desrespeito as leis federais, estaduais ou municipais. Outrossim, serão de exclusiva responsabilidade ${aoALocatario.toLowerCase()} quaisquer danos que venham a ser causados a terceiros, inclusive os vizinhos, pelo mau uso do imóvel locado.</p>
+            <p class="sub-item">b) O(A) LOCATÁRIO(A) confessa receber o imóvel em perfeito estado de conservação limpeza, obrigando-se assim conserva-lo e restitui-los nos termos do Presente Contrato, na conformidade do disposto na cláusula XI, inclusive no tocante aos aparelhos em geral que, se substituídos, deverão ser substituídos por outro similar em marca, modelo e qualidade.</p>
+            <p class="sub-item">c) Sob pena de responsabilidade civil do(a) LOCATÁRIO(A), deverão ser imediatamente levados ao conhecimento do(a) LOCADOR(A) quaisquer papeis ou documentos entregues aos cuidados do(a) LOCATÁRIO(A), desde que se refiram aos interesses diretos do(a) LOCADOR(A) ou do imóvel, ficando o(a) LOCATÁRIO(A), responsável pelas multas que forem a este aplicada em razão do descumprimento dessa obrigação.</p>
+            <p class="sub-item">d) O(A) LOCATÁRIO(A) será responsável por quaisquer multas em que possa incorrer por desrespeito as leis federais, estaduais ou municipais. Outrossim, serão de exclusiva responsabilidade do(a) LOCATÁRIO(A) quaisquer danos que venham a ser causados a terceiros, inclusive os vizinhos, pelo mau uso do imóvel locado.</p>
             
             <div class="clausula-titulo">II DO USO DO IMÓVEL</div>
-            <p class="sub-item">a) O imóvel destina-se exclusivamente ao uso RESIDENCIAL, sendo vedado ${aoALocatario.toLowerCase()} dar-lhe outra destinação, subloca-lo, cede-lo, ou empresta-lo no todo ou em parte, que título for. Caso fique constatado algum desses atos, o aluguel será acrescido de 50% (cinquenta por cento) do valor do aluguel mensal, sem direito aos descontos, a título de multa contratual, até que seja desocupado pela via judicial cabível ou devolução nas condições estabelecidas neste Instrumento.</p>
-            <p class="sub-item">b) Cumpre ${aoALocatario.toLowerCase()} fazer imediata comunicação por escrito ao LOCADOR, sempre que ocorrer qualquer avaria grave na estrutura do imóvel ou nas suas instalações, onde não poderão ser depositados artigos inflamáveis, explosivos ou de fácil deterioração.</p>
-            <p class="sub-item">c) Responde ${oaLocatario.toLowerCase()}, pelo incêndio lavrado no imóvel, se não provar caso fortuito ou força maior, vicio de construção ou de propagação de fogo em outra casa.</p>
-            <p class="sub-item">d) A ocorrência de desastre desencadeado por forças da natureza ou sobre-humanas tais como faixas elétricas, inundações, desabamentos, abalos sísmicos, etc., ou acidentes naturais motivados por terceiros, não acarretará a responsabilidade solidário do LOCADOR pelos eventos matérias ou pessoais acaso surgidos, com relação a pertences aos haveres e a segurança pessoal dos ocupantes.</p>
-            <p class="sub-item">e) Além da ocorrência de qualquer evento previsto no item anterior, o LOCADOR também não se responsabiliza a indenizar ${aoALocatario.toLowerCase()}, a qualquer título que for, por danos materiais ou pessoais, ocasionado por roubo, furto, arrombamento do imóvel ou depredações provadas por distúrbios que não possam ser contidos.</p>
-            <p class="sub-item">f) fica assegurado ao LOCADOR ou a pessoa de sua confiança o direito de inspecionar, quando julgar conveniente, o imóvel ora locado, a fim de constatar a observância e cumprimento de todos as cláusulas e condições deste contrato e, caso o LOCADOR deseja alienar o imóvel, obriga-se ${oaLocatario.toLowerCase()} a permitir que o mesmo seja visitado por candidatos a respectiva aquisição, em horário a ser combinado com o LOCADOR, sob a pena de rescisão imediata deste contrato.</p>
+            <p class="sub-item">a) O imóvel destina-se exclusivamente ao uso RESIDENCIAL, sendo vedado ao(à) LOCATÁRIO(A) dar-lhe outra destinação, subloca-lo, cede-lo, ou empresta-lo no todo ou em parte, que título for. Caso fique constatado algum desses atos, o aluguel será acrescido de 50% (cinquenta por cento) do valor do aluguel mensal, sem direito aos descontos, a título de multa contratual, até que seja desocupado pela via judicial cabível ou devolução nas condições estabelecidas neste Instrumento.</p>
+            <p class="sub-item">b) Cumpre ao(à) LOCATÁRIO(A) fazer imediata comunicação por escrito ao LOCADOR(A), sempre que ocorrer qualquer avaria grave na estrutura do imóvel ou nas suas instalações, onde não poderão ser depositados artigos inflamáveis, explosivos ou de fácil deterioração.</p>
+            <p class="sub-item">c) Responde o(a) LOCATÁRIO(A), pelo incêndio lavrado no imóvel, se não provar caso fortuito ou força maior, vicio de construção ou de propagação de fogo em outra casa.</p>
+            <p class="sub-item">d) A ocorrência de desastre desencadeado por forças da natureza ou sobre-humanas tais como faixas elétricas, inundações, desabamentos, abalos sísmicos, etc., ou acidentes naturais motivados por terceiros, não acarretará a responsabilidade solidário do LOCADOR(A) pelos eventos matérias ou pessoais acaso surgidos, com relação a pertences aos haveres e a segurança pessoal dos ocupantes.</p>
+            <p class="sub-item">e) Além da ocorrência de qualquer evento previsto no item anterior, o LOCADOR(A) também não se responsabiliza a indenizar o(a) LOCATÁRIO(A), a qualquer título que for, por danos materiais ou pessoais, ocasionado por roubo, furto, arrombamento do imóvel ou depredações provadas por distúrbios que não possam ser contidos.</p>
+            <p class="sub-item">f) fica assegurado ao LOCADOR(A) ou a pessoa de sua confiança o direito de inspecionar, quando julgar conveniente, o imóvel ora locado, a fim de constatar a observância e cumprimento de todos as cláusulas e condições deste contrato e, caso o LOCADOR(A) deseja alienar o imóvel, obriga-se o(a) LOCATÁRIO(A) a permitir que o mesmo seja visitado por candidatos a respectiva aquisição, em horário a ser combinado com o LOCADOR(A), sob a pena de rescisão imediata deste contrato.</p>
             
             <div class="clausula-titulo">III - DO PRAZO</div>
-            <p class="sub-item">a) O presente contrato entrará em vigor no <strong>DIA ${dataInicio} E TERMINARÁ NO DIA ${dataFim}</strong>, data em que ${oaLocatario.toLowerCase()} se obriga a restituir o imóvel locado completamente desocupado, ficando o LOCADOR eximido da obrigação de comunicação prévia ${aoALocatario.toLowerCase()}.</p>
-            <p class="sub-item">b) A locação findará na data acima mencionada independentemente de qualquer aviso ou interpelação judicial ou extrajudicial, não se havendo como presumida falta de oposição do LOCADOR o fato de, findo o prazo continuar ${oaLocatario.toLowerCase()} na posse da coisa alugado, por qualquer motivo.</p>
-            <p class="sub-item">c) Com a ressalva do dito na letra "d", antes do vencimento do presente contrato não poderá o LOCADOR reaver o imóvel locado senão ressarcindo ${aoALocatario.toLowerCase()} as perdas e danos resultantes que equivalerão ao montante dos alugueis vencidos, nem poderá ${oaLocatario.toLowerCase()}, sob qualquer pretexto. Devolver o imóvel, senão pagando ao LOCADOR os alugueis relativos ao tempo que resta, desde que haja aviso por escrito no prazo mínimo de 30 (trinta) dias de acordo com a legislação vigente.</p>
+            <p class="sub-item">a) O presente contrato entrará em vigor no <strong>DIA ${dataInicio} E TERMINARÁ NO DIA ${dataFim}</strong>, data em que o(a) LOCATÁRIO(A) se obriga a restituir o imóvel locado completamente desocupado, ficando o LOCADOR(A) eximido da obrigação de comunicação prévia ao(à) LOCATÁRIO(A).</p>
+            <p class="sub-item">b) A locação findará na data acima mencionada independentemente de qualquer aviso ou interpelação judicial ou extrajudicial, não se havendo como presumida falta de oposição do LOCADOR(A) o fato de, findo o prazo continuar o(a) LOCATÁRIO(A) na posse da coisa alugado, por qualquer motivo.</p>
+            <p class="sub-item">c) Com a ressalva do dito na letra "d", antes do vencimento do presente contrato não poderá o LOCADOR(A) reaver o imóvel locado senão ressarcindo ao(à) LOCATÁRIO(A) as perdas e danos resultantes que equivalerão ao montante dos alugueis vencidos, nem poderá o(a) LOCATÁRIO(A), sob qualquer pretexto. Devolver o imóvel, senão pagando ao LOCADOR(A) os alugueis relativos ao tempo que resta, desde que haja aviso por escrito no prazo mínimo de 30 (trinta) dias de acordo com a legislação vigente.</p>
             <p class="sub-item">d) O presente contrato poderá ser rescindo, em qualquer tempo, desde que haja recíproca anuência das partes.</p>
-            <p class="sub-item">e) A ocorrência de qualquer sinistro que afete a segurança ou a integridade do imóvel bem como a hipótese eventual de sua desapropriação, acarretará a imediata rescisão deste contrato, não assistindo ${aoALocatario.toLowerCase()} o direito de reclamar do LOCADOR qualquer indenização por prejuízos que venha sofrer por esses motivos.</p>
-            <p class="sub-item">f) Continuando ${oaLocatario.toLowerCase()} na residência locada após o término no prazo contratual subsistirão as condições ora ajustadas, com as ressalvas da lei.</p>
+            <p class="sub-item">e) A ocorrência de qualquer sinistro que afete a segurança ou a integridade do imóvel bem como a hipótese eventual de sua desapropriação, acarretará a imediata rescisão deste contrato, não assistindo ao(à) LOCATÁRIO(A) o direito de reclamar do LOCADOR(A) qualquer indenização por prejuízos que venha sofrer por esses motivos.</p>
+            <p class="sub-item">f) Continuando o(a) LOCATÁRIO(A) na residência locada após o término no prazo contratual subsistirão as condições ora ajustadas, com as ressalvas da lei.</p>
             
             <div class="clausula-titulo">IV - DO ALUGUEL</div>
-            <p class="sub-item">a) O valor mensal do aluguel será de <strong>R$ ${valorFormatado}</strong> que ${oaLocatario.toLowerCase()} deverá pagar o mesmo no endereço do LOCADOR ou a de seu representante.</p>
+            <p class="sub-item">a) O valor mensal do aluguel será de <strong>R$ ${valorFormatado}</strong> que o(a) LOCATÁRIO(A) deverá pagar o mesmo no endereço do LOCADOR(A) ou a de seu representante.</p>
             <p class="sub-item">b) Fica estipulada multa no valor de 10% (dez por cento) do valor do aluguel mensal do imóvel mais 2,0% (dois por cento) de juros ao dia, no caso de pagamento do aluguel em atraso.</p>
-            <p class="sub-item">c) Findo o prazo da presente locação e continuando ${oaLocatario.toLowerCase()} na posse do imóvel objeto deste contrato, deverá o mesmo pagar o aluguel estipulado, pelo LOCADOR, corrigido mensalmente de acordo com o índice aqui pactuado, a partir do 9º (nono) mês.</p>
-            <p class="sub-item">d) Se, notificado ${oaLocatario.toLowerCase()}, não restituir a coisa, pagará, enquanto a tiver em seu poder, o aluguel que o LOCADOR arbitrar (art. 1196, do CCB), respondendo ainda, por qualquer dano que bem venha sofrer, ainda que proveniente de caso fortuito.</p>
-            <p class="sub-item">e) Se na vigência do contrato, o LOCADOR por si ou seu proposto admitir, em benefício ${aoALocatario.toLowerCase()}, alguma demora nos pagamentos dos alugueis ou no cumprimento de quaisquer outras obrigações, tal tolerância não poderá ser considerada novação ou modificação de qualquer condição deste contrato, não dando ensejo à invocação do Artigo 1503 do Código Civil, permanecendo em vigor as cláusulas e condições como se nenhum benefício houvesse intercorrido.</p>
+            <p class="sub-item">c) Findo o prazo da presente locação e continuando o(a) LOCATÁRIO(A) na posse do imóvel objeto deste contrato, deverá o mesmo pagar o aluguel estipulado, pelo LOCADOR(A), corrigido mensalmente de acordo com o índice aqui pactuado, a partir do 9º (nono) mês.</p>
+            <p class="sub-item">d) Se, notificado o(a) LOCATÁRIO(A), não restituir a coisa, pagará, enquanto a tiver em seu poder, o aluguel que o LOCADOR(A) arbitrar (art. 1196, do CCB), respondendo ainda, por qualquer dano que bem venha sofrer, ainda que proveniente de caso fortuito.</p>
+            <p class="sub-item">e) Se na vigência do contrato, o LOCADOR(A) por si ou seu proposto admitir, em benefício ao(à) LOCATÁRIO(A), alguma demora nos pagamentos dos alugueis ou no cumprimento de quaisquer outras obrigações, tal tolerância não poderá ser considerada novação ou modificação de qualquer condição deste contrato, não dando ensejo à invocação do Artigo 1503 do Código Civil, permanecendo em vigor as cláusulas e condições como se nenhum benefício houvesse intercorrido.</p>
             <p class="sub-item">f) Se na vigência do contrato, ou em sua prorrogação legal, será utilizado como índice de correção do mesmo os índices estipulados pelos órgãos governamentais competentes, sendo que sua vigência será automática, reajustando assim o valor mensal do referido contrato sem que seja necessário o aviso prévio, pois este índice é divulgado pelos órgãos competentes por isso se dispensa o aviso.</p>
-            <p class="sub-item">g) Além do aluguel mensal e os encargos previstos na lei vigente ${oaLocatario.toLowerCase()}, deverá pagar o IPTU/TLP, conta de água, conta de energia e as taxas municipais incidentes sobre o imóvel. As contas deverão ser pagas até o dia do vencimento ficando a cargo ${aoALocatario.toLowerCase()} as despesas de multa e juros acrescidos ao valor das respectivas taxas devido ao não pagamento das mesmas nas suas respectivas datas de vencimento.</p>
-            <p class="sub-item">h) Caso ${oaLocatario.toLowerCase()} realizar as obras de recuperação de estragos a que der causa, inclusive referentes às partes comuns do imóvel, desde que os estragos tenham sido causados ${aoALocatario.toLowerCase()}.</p>
-            <p class="sub-item">i) Caso ${oaLocatario.toLowerCase()} efetue o pagamento em cheque dentro do prazo que lhe permite a letra "a" da presente cláusula e se o referido cheque for devolvido por qualquer motivo, deverá pagar o valor integral da prestação com as demais multas e juros contratuais.</p>
-            <p class="sub-item">j) O pagamento da prestação locatícia antes do vencimento não constitui obrigação ${aoALocatario.toLowerCase()}, nem exigência do LOCADOR ou da administradora, ficando entendido que se tal fato ocorrer, será por livre e espontânea vontade e conveniência ${aoALocatario.toLowerCase()}.</p>
+            <p class="sub-item">g) Além do aluguel mensal e os encargos previstos na lei vigente o(a) LOCATÁRIO(A), deverá pagar o IPTU/TLP, conta de água, conta de energia e as taxas municipais incidentes sobre o imóvel. As contas deverão ser pagas até o dia do vencimento ficando a cargo ao(à) LOCATÁRIO(A) as despesas de multa e juros acrescidos ao valor das respectivas taxas devido ao não pagamento das mesmas nas suas respectivas datas de vencimento.</p>
+            <p class="sub-item">h) Caso o(a) LOCATÁRIO(A) realizar as obras de recuperação de estragos a que der causa, inclusive referentes às partes comuns do imóvel, desde que os estragos tenham sido causados ao(à) LOCATÁRIO(A).</p>
+            <p class="sub-item">i) Caso o(a) LOCATÁRIO(A) efetue o pagamento em cheque dentro do prazo que lhe permite a letra "a" da presente cláusula e se o referido cheque for devolvido por qualquer motivo, deverá pagar o valor integral da prestação com as demais multas e juros contratuais.</p>
+            <p class="sub-item">j) O pagamento da prestação locatícia antes do vencimento não constitui obrigação ao(à) LOCATÁRIO(A), nem exigência do LOCADOR(A) ou da administradora, ficando entendido que se tal fato ocorrer, será por livre e espontânea vontade e conveniência ao(à) LOCATÁRIO(A).</p>
             
             <div class="clausula-titulo">V - DAS REPARAÇÕES E BENFEITORIAS</div>
-            <p class="sub-item">a) Sem prévia autorização escrita do LOCADOR, é vedado ${aoALocatario.toLowerCase()} executar quaisquer benfeitorias úteis ao imóvel.</p>
-            <p class="sub-item">b) ${oaLocatario} se obriga a manter o imóvel e suas instalações de acordo com o padrão encontrado no primeiro dia de contrato.</p>
-            <p class="sub-item">d) Quaisquer modificações, reformas, acréscimos, todas as benfeitorias sejam voluntárias, úteis ou necessárias realizadas ${oaLocatario.toLowerCase()}, ficarão definitivamente incorporadas ao imóvel, independente mente da indenização e sem direito de retenção da coisa locado, podendo no entanto, o LOCADOR exigir ${aoALocatario.toLowerCase()}, a época da devolução do imóvel, que esteja o mesmo em seu estado primitivo, sem quaisquer vestígios das ditas alterações, correndo por conta ${aoALocatario.toLowerCase()} todas as despesas necessárias a repor o imóvel em seu estado original.</p>
+            <p class="sub-item">a) Sem prévia autorização escrita do LOCADOR(A), é vedado ao(à) LOCATÁRIO(A) executar quaisquer benfeitorias úteis ao imóvel.</p>
+            <p class="sub-item">b) O(A) LOCATÁRIO(A) se obriga a manter o imóvel e suas instalações de acordo com o padrão encontrado no primeiro dia de contrato.</p>
+            <p class="sub-item">d) Quaisquer modificações, reformas, acréscimos, todas as benfeitorias sejam voluntárias, úteis ou necessárias realizadas o(a) LOCATÁRIO(A), ficarão definitivamente incorporadas ao imóvel, independente mente da indenização e sem direito de retenção da coisa locado, podendo no entanto, o LOCADOR(A) exigir ao(à) LOCATÁRIO(A), a época da devolução do imóvel, que esteja o mesmo em seu estado primitivo, sem quaisquer vestígios das ditas alterações, correndo por conta ao(à) LOCATÁRIO(A) todas as despesas necessárias a repor o imóvel em seu estado original.</p>
             
             <div class="clausula-titulo">VI - DA INFRAÇÃO CONTRATUAL</div>
             <p class="sub-item">a) A infrigência de qualquer disposição deste contrato sujeita o infrator a cominação de uma multa equivalente a 50% (cinquenta por cento) sobre seu valor, ou sobre uma anuidade se tratar de locação prorrogada por prazo indeterminado, sem prejuízo das outras sanções cabíveis e de indenização por perdas e danos.</p>
             
             <div class="clausula-titulo">VII - DO ABANDONO DO IMÓVEL</div>
-            <p class="sub-item">a) A fim de resguardar-se o imóvel de qualquer eventualidade decorrente da ausência de ocupação, e no intuito de defender-se a sua integridade contra possíveis esbulhos ou depredações, fica o LOCADOR expressamente autorizado a ocupar o imóvel, independentemente de qualquer procedimento judicial prévio, ainda que seja necessário o emprego de força para arrombá-lo, desde que fique suficientemente comprovado o abandono do imóvel ${aoALocatario.toLowerCase()}, caracterizando-se também como abandono à ausência habitual e comprovado do inquilino depois de vencido o 2º (segundo) mês sem o pagamento dos alugueis respectivos.</p>
+            <p class="sub-item">a) A fim de resguardar-se o imóvel de qualquer eventualidade decorrente da ausência de ocupação, e no intuito de defender-se a sua integridade contra possíveis esbulhos ou depredações, fica o LOCADOR(A) expressamente autorizado a ocupar o imóvel, independentemente de qualquer procedimento judicial prévio, ainda que seja necessário o emprego de força para arrombá-lo, desde que fique suficientemente comprovado o abandono do imóvel ao(à) LOCATÁRIO(A), caracterizando-se também como abandono à ausência habitual e comprovado do inquilino depois de vencido o 2º (segundo) mês sem o pagamento dos alugueis respectivos.</p>
             
             <div class="clausula-titulo">VIII - DAS OBRIGAÇÕES SUCESSÓRIAS</div>
             <p>As partes desde já se obrigam, por si, seus herdeiros ou sucessores, ao plano geral e irrenunciável cumprimento do Presente Instrumento de Contrato de Locação, em todas as suas cláusulas e condições.</p>
             
             <div class="clausula-titulo">IX - DAS RESTRIÇÕES DO IMÓVEL</div>
-            <p class="sub-item">a) O termo final do presente contrato dar-se-á com a assinatura do LOCADOR de um TERMO DE RECEBIMENTO DO IMÓVEL, verificado previamente o seu estado de conservação e desde que estejam liquidados todos os encargos financeiros decorrentes do presente.</p>
-            <p class="sub-item">b) Caso o imóvel apresente estragos carente de recuperação, poderá o LOCADOR ou seu preposto executar os serviços de reparação que fizerem necessárias, mediante a tomada de preços de 03 (três) firmas especializadas, fincado, desde já, ajustado que não o ressarcimento por parte ${aoALocatario.toLowerCase()} das despesas efetuada e do pagamento do aluguel no tempo necessário à reposição nas condições idênticas ao TERMO DE VISTORIA feita pelo LOCADOR E ${oaLocatario}, autorizará a sua respectiva cobrança, servindo de título hábil o recibo passado pelo executante dos referidos serviços.</p>
+            <p class="sub-item">a) O termo final do presente contrato dar-se-á com a assinatura do LOCADOR(A) de um TERMO DE RECEBIMENTO DO IMÓVEL, verificado previamente o seu estado de conservação e desde que estejam liquidados todos os encargos financeiros decorrentes do presente.</p>
+            <p class="sub-item">b) Caso o imóvel apresente estragos carente de recuperação, poderá o LOCADOR(A) ou seu preposto executar os serviços de reparação que fizerem necessárias, mediante a tomada de preços de 03 (três) firmas especializadas, fincado, desde já, ajustado que não o ressarcimento por parte ao(à) LOCATÁRIO(A) das despesas efetuada e do pagamento do aluguel no tempo necessário à reposição nas condições idênticas ao TERMO DE VISTORIA feita pelo LOCADOR(A) E O(A) LOCATÁRIO(A), autorizará a sua respectiva cobrança, servindo de título hábil o recibo passado pelo executante dos referidos serviços.</p>
             <p class="sub-item">c) Nos casos em que houver caução em dinheiro, as despesas acima referidas serão deduzidas da mesma, devolvendo-se o saldo credor, se houver. Caso haja saldo devedor, este será cobrado na mesma forma estipulada na letra "b", que contem estas cláusulas.</p>
-            <p class="sub-item">d) Em sendo pessoa jurídica, ${oaLocatario.toLowerCase()} deverá apresentar no ato da devolução das chaves, o documento de transferência ou baixa de firma fornecida pelo órgão fiscal competente, para que o LOCADOR possa realugar o imóvel de imediato e sem entrava, sem que o contrato continuará em pleno vigor.</p>
+            <p class="sub-item">d) Em sendo pessoa jurídica, o(a) LOCATÁRIO(A) deverá apresentar no ato da devolução das chaves, o documento de transferência ou baixa de firma fornecida pelo órgão fiscal competente, para que o LOCADOR(A) possa realugar o imóvel de imediato e sem entrava, sem que o contrato continuará em pleno vigor.</p>
             
             <div class="clausula-titulo">X - DO FORO</div>
             <p>Com a renuncia expressa de qualquer outro, por mais privilegiado que seja, fica eleito o Foro da Comarca de ${cidadeForo}, para dirimir qualquer questão oriunda do presente contrato.</p>
             
             <div class="clausula-titulo">XI - DISCRIÇÃO DO ESTADO DO IMÓVEL</div>
-            <p>O imóvel objeto do presente contrato é entregue ${aoALocatario.toLowerCase()} em perfeito estado de conservação e limpeza, com todas as instalações elétricas, sanitárias, hidráulicas em perfeito funcionamento.</p>
+            <p>O imóvel objeto do presente contrato é entregue ao(à) LOCATÁRIO(A) em perfeito estado de conservação e limpeza, com todas as instalações elétricas, sanitárias, hidráulicas em perfeito funcionamento.</p>
             
             <p>Estando todos em pleno acordo, justo e contratado, lavrou-se o presente instrumento de contrato em 02 (duas) vias de igual teor e forma, o qual, depois de lido e achado conforme, vai assinado pelas partes contratantes, pelos fiadores e por 02 (duas) testemunhas abaixo indicadas.</p>
             
             <p class="footer-data"><strong>${cidadeForo}, ${dataAssinatura}</strong></p>
             
             <div class="assinatura-area">
-                <div class="linha-assinatura">_____________________________________________________________<br><strong>LOCADOR</strong></div>
-                <div class="linha-assinatura">_____________________________________________________________<br><strong>${tituloLocatario}</strong></div>
+                <div class="linha-assinatura">_____________________________________________________________<br><strong>LOCADOR(A)</strong></div>
+                <div class="linha-assinatura">_____________________________________________________________<br><strong>LOCATÁRIO(A)</strong></div>
             </div>
             
             <div class="testemunhas-area">
@@ -519,28 +475,17 @@
             </div>
         `;
 
-        let contratoFinal = contratoBase;
-        if (genero === "masculino") {
-          contratoFinal = aplicarGenero(contratoBase, genero);
-        }
-
-        document.getElementById("contractContent").innerHTML = contratoFinal;
+        document.getElementById("contractContent").innerHTML = contrato;
       }
 
-      // Atualiza a rubrica no rodapé com os NOMES das partes e espaçamento adequado
       function updatePrintRubrica() {
-        const genero = document.getElementById("generoLocatario").value;
-        const label = genero === "masculino" ? "LOCATÁRIO" : "LOCATÁRIA";
-
-        // Pega os nomes dos campos (sempre em maiúsculas)
         const locadorNome =
           document.getElementById("locadorNome").value.trim().toUpperCase() ||
           "JOAQUIM PEREIRA DA ROCHA";
         const locatarioNome =
-          document.getElementById("locatariaNome").value.trim().toUpperCase() ||
+          document.getElementById("locatarioNome").value.trim().toUpperCase() ||
           "FERNANDA LIMA DOS SANTOS";
 
-        // Cria ou atualiza o estilo da rubrica no rodapé
         let style = document.getElementById("print-rubrica-style");
         if (!style) {
           style = document.createElement("style");
@@ -592,12 +537,6 @@
       document
         .getElementById("printPdfBtn")
         .addEventListener("click", printContract);
-      document
-        .getElementById("generoLocatario")
-        .addEventListener("change", () => {
-          generateContract();
-          updatePrintRubrica();
-        });
 
       generateContract();
       updatePrintRubrica();
